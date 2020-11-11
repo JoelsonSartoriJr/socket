@@ -1,4 +1,4 @@
-def codigoBinario(texto):
+def codigo_binario(texto):
     sequencia_byte = bytearray(texto, "utf8")
 
     lista_byte = []
@@ -25,7 +25,7 @@ def envio(conexao, inicio, msg):
 
 
 
-def selecaoSeletiva(inicio, tamanho, janela, final, con, msg):
+def selecao_Seletiva(inicio, tamanho, janela, final, con, msg):
     while (inicio != tamanho):
     
         while(inicio!=(tamanho-janela)):

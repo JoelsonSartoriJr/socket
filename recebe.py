@@ -1,5 +1,6 @@
 import socket
 import random
+from goBackN import go_Back_N_recebe
 
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 4321
@@ -16,25 +17,10 @@ while True:
     tamanho = int(tamanho.decode())
 
     inicio = 0
-    result = ""
 
-    while (inicio != tamanho):
+    result = go_Back_N_recebe(udp, inicio, tamanho)
 
-        falha = random.randint(0,1)
-        if(falha == 1):
-            acerto = f"ACK {inicio}"
-            _msg = udp.recv(1024)
-            _msg = _msg.decode()
-            
-            udp.send(acerto.encode())
-
-            result+= _msg
-            inicio+=1
-
-        else:
-            erro = "ACK Lost"
-            _msg = udp.recv(1024)
-            udp.send(erro.encode())
+    
 
     print(f"Mensagem recebida: {msg}")
 
