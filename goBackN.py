@@ -1,31 +1,6 @@
-def codigoBinario(texto):
-    sequencia_byte = bytearray(texto, "utf8")
+from aux import envio
 
-    lista_byte = []
-
-    for byte in sequencia_byte:
-        binario = bin(byte)
-        binario.replace("0b", "")
-        lista_byte.append(binario)
-
-    result=""
-    for byte in lista_byte:
-        result+= byte
-    return result
-
-
-def envio(conexao, inicio, msg):
-    conexao.send(msg[inicio].encode())
-    estado = conexao.recv(1024)
-    estado = estado.decode()
-    print(estado)
-
-    return estado
-
-
-
-
-def selecaoSeletiva(inicio, tamanho, janela, final, con, msg):
+def go_Back_N(inicio, tamanho, janela, final, con, msg):
     while (inicio != tamanho):
     
         while(inicio!=(tamanho-janela)):

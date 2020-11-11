@@ -1,5 +1,6 @@
 import socket
 from aux import codigoBinario
+from goBackN import go_Back_N
 
 PORT = 4321
 HOST = socket.gethostname()
@@ -27,34 +28,6 @@ while True:
     janela = int(input('Digite o número da janela: ')) -1
     final = janela
 
-    while (inicio != tamanho):
+    go_Back_N(inicio, tamanho, janela, final, con, msg)
 
-        while(inicio!=(tamanho-janela)):
-
-            con.send(msg[inicio].encode())
-            retorno = con.recv(1024)
-            retorno = retorno.decode()
-            print(retorno)
-            if(retorno != "ACK Lost"):
-                print(f'Recebido! Janela no range {inicio+1} até {final+1}. Enviando novos pacotes.')
-                inicio +=1 
-                final +=1
-
-            else:
-                print('Dados perdidos')
-
-        while (inicio != tamanho):
-
-            con.send(msg[inicio].encode())
-            retorno = con.recv(1024)
-            retorno = retorno.decode()
-            print(retorno)
-            if(retorno != "ACK Lost"):
-                print(f'Recebido! Janela no range {inicio+1} até {final+1}. Enviando novos pacotes.')
-                inicio +=1 
-                final +=1
-
-            else:
-                print('Dados perdidos')
-
-upd.close()
+udp.close()
