@@ -18,11 +18,11 @@ pip install sockets
 
 1. Clone este repositório para a sua máquina.
 2. Realizar a instalação das dependências.
-3. Executar o arquivo do server com o comando:
+3. Executar o arquivo do server com o comando e na mesma ordem:
   ```sh
-  python server.py
+  python envia.py
   ```
 4. Executar o arquivo do cliente com o comando:
   ```sh
-  python cliente.py
+  python recebe.py
   ```
