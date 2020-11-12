@@ -11,15 +11,18 @@ udp.bind((HOST, PORT))
 udp.listen(1)
 print('Esperando conexão ....')
 con, _ = udp.accept()
-print("Connectado")
+print("Connectado.....")
+print("Para finalizar a conexão digite exit.")
 while True:
-    print("Para finalizar a conexão digite exit.")
-    msg = input(str("Digite sua mensagem: "))
+    print("-"*50)
+    msg = input("Digite sua mensagem: ")
     con.send(msg.encode())
-
     if msg == "exit":
         udp.close()
         break
+
+    algoritmo = input("Digite 1 para usar o algoritmo GBN, 2 para o algoritmo Repetição seletiva: ")
+    con.send(algoritmo.encode())
 
     msg = codigo_binario(msg)
     tamanho = len(msg)

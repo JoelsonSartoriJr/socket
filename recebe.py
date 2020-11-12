@@ -13,6 +13,8 @@ print('Conectado ...')
 while True:
     msg = udp.recv(1024)
     msg = msg.decode()
+    algoritmo = udp.recv(1024)
+    algoritmo = int(algoritmo.decode())
     tamanho = udp.recv(1024)
     tamanho = int(tamanho.decode())
 
