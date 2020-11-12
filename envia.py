@@ -25,9 +25,7 @@ while True:
     tamanho = len(msg)
     con.send(str(tamanho).encode())
 
-    inicio = 0
     janela = int(input('Digite o número da janela: ')) -1
-    final = janela
 
-    go_Back_N_envio(inicio, tamanho, janela, final, con, msg)
+    go_Back_N_envio(tamanho, janela, con, msg)
 

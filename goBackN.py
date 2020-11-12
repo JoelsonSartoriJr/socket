@@ -1,7 +1,10 @@
 from aux import envio
 import random
 
-def go_Back_N_envio(inicio, tamanho, janela, final, con, msg):
+def go_Back_N_envio(tamanho, janela, con, msg):
+    inicio = 0
+    final = janela
+
     while (inicio != tamanho):
     
         while(inicio!=(tamanho-janela)):
@@ -26,8 +29,9 @@ def go_Back_N_envio(inicio, tamanho, janela, final, con, msg):
             else:
                 print('Dados perdidos')
 
-def go_Back_N_recebe(udp, inicio, tamanho):
+def go_Back_N_recebe(udp, tamanho):
     result = ""
+    inicio = 0
     while (inicio != tamanho):
     
         falha = random.randint(0,1)

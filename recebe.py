@@ -16,11 +16,7 @@ while True:
     tamanho = udp.recv(1024)
     tamanho = int(tamanho.decode())
 
-    inicio = 0
-
-    result = go_Back_N_recebe(udp, inicio, tamanho)
-
-    
+    go_Back_N_recebe(udp, tamanho)
 
     print(f"Mensagem recebida: {msg}")
 
