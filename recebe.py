@@ -1,6 +1,7 @@
 import socket
 import random
 from goBackN import go_Back_N_recebe
+from repeticaoSeletiva import repeticao_seletiva_recebe
 
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 4321
@@ -21,11 +22,11 @@ while True:
 
     if algoritmo == 1:
         go_Back_N_recebe(udp, tamanho)
+        print(f"Mensagem recebida: {msg}")
     elif algoritmo == 2:
-        ...
+        repeticao_seletiva_recebe(udp, tamanho)
+        print(f"Mensagem recebida: {msg}")
     else:
         print('Opção invalida !! :(')
-
-    print(f"Mensagem recebida: {msg}")
 
 udp.close()

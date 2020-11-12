@@ -4,7 +4,6 @@ import random
 def go_Back_N_envio(tamanho, janela, con, msg):
     inicio = 0
     final = janela
-
     while (inicio != tamanho):
     
         while(inicio!=(tamanho-janela)):

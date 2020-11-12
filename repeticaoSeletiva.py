@@ -1,73 +1,65 @@
+from aux import envio
 import random
 
-def repeticao_seletiva_envio(inicio, janela, final, con, msg):
+def repeticao_seletiva_envio(tamanho, janela, con, msg):
+    inicio = 0
+    final = janela
     cache = []
-    flag = 0
-
-    if(flag == 0):
-        for i in range(janela):
-            cache.append(inicio+i)
-            print(f'Frame -> {inicio+i}')
-    else:
-        print(f'Frame -> {inicio}')
-
-    con.send(str(inicio).encode())
-    dado = con.recv(1024).decode()
-
-    inicio = int(dado)
+    while (inicio != tamanho):
     
-    if inicio not in cache:
-        final = inicio + janela -1
-        flag = 0
-        for i in range(janela):
-            cache.pop()
+        while(inicio!=(tamanho-janela)):
 
-    else:
-        flag = 1 
+            retorno = envio(con, inicio, msg)
+            if(retorno != "ACK Lost"):
+                print(f'Recebido! Janela no range {inicio+1} até {final+1}. Enviando novos pacotes.')
+                inicio +=1
+                final +=1
 
-    print(f'ACK recebido do server {dado}')
+            else:
+                print('Dados perdidos')
+                cache.append(inicio)
+                inicio +=1
+                final +=1
 
+        while len(cache) != 0:
+            print('inicio cache')
+            for i in cache:
+                retorno = envio(con, int(i), msg)
 
-def repeticao_seletiva_recebe(udp, tamanho, janela):
-    inicio = int(udp.recv(1024).decode())
+                if(retorno != "ACK Lost"):
+                    print(f'Recebido! Janela no range {inicio+1} até {final+1}. Enviando novos pacotes.')
+                    cache.pop(0)
+                else:
+                    print('Dados perdidos')
+
+        while (inicio != tamanho):
+
+            retorno = envio(con, inicio, msg)
+            if(retorno != "ACK Lost"):
+                print(f'Recebido! Janela no range {inicio+1} até {final+1}. Enviando novos pacotes.')
+                inicio +=1 
+                final +=1
+
+            else:
+                print('Dados perdidos')
+
+def repeticao_seletiva_recebe(udp, tamanho):
+    result = ""
+    inicio = 0
+    while (inicio != tamanho):
     
-    lim = inicio + janela -1
-    count = 0
-    flag = 0
-    ack = inicio
-    novo = 1
-    cache = []
+        falha = random.randint(0,1)
+        if(falha == 1):
+            acerto = f"ACK {inicio}"
+            _msg = udp.recv(1024)
+            _msg = _msg.decode()
+            
+            udp.send(acerto.encode())
 
-    rand = random.randint(1, janela)
+            result+= _msg
+            inicio+=1
 
-    if novo == 1:
-        while(count != rand):
-            temp = random.randint(inicio, lim)
-
-            if temp not in cache:
-                print(f'Frame recebido {temp}.')
-                count += 1
-                flag = 1
-                cache.append(temp)
-    else:
-        print(f'Frame recebido {inicio}.')
-        cache.append(inicio)
-        flag = 1
-
-    if flag == 1:
-        for i in range(inicio, lim+1):
-            if i not in cache:
-                ack = i
-                break
-            ack = i + 1
-
-    print(f'Enviando ACK -> {ack}')
-
-    con.send(str(ack).encode())
-
-    if ack > final:
-        inicio = ack
-        final = inicio + janela -1
-        novo = 1
-    else:
-        novo = 0
+        else:
+            erro = "ACK Lost"
+            _msg = udp.recv(1024)
+            udp.send(erro.encode())
