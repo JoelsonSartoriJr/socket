@@ -16,13 +16,12 @@ def repeticao_seletiva_envio(tamanho, janela, con, msg):
                 final +=1
 
             else:
-                print('Dados perdidos')
                 cache.append(inicio)
                 inicio +=1
                 final +=1
-
+                
+        print(cache)
         while len(cache) != 0:
-            print('inicio cache')
             for i in cache:
                 retorno = envio(con, int(i), msg)
 
@@ -41,7 +40,9 @@ def repeticao_seletiva_envio(tamanho, janela, con, msg):
                 final +=1
 
             else:
-                print('Dados perdidos')
+                cache.append(inicio)
+                inicio +=1
+                final +=1
 
 def repeticao_seletiva_recebe(udp, tamanho):
     result = ""
