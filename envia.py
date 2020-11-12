@@ -11,17 +11,17 @@ udp.bind((HOST, PORT))
 udp.listen(1)
 print('Esperando conexão ....')
 con, _ = udp.accept()
-print("Connectado.....")
-print("Para finalizar a conexão digite exit.")
+print('Connectado.....')
+print('Para finalizar a conexão digite exit.')
 while True:
-    print("-"*50)
-    msg = input("Digite sua mensagem: ")
+    print('-'*50)
+    msg = input('Digite sua mensagem:' )
     con.send(msg.encode())
-    if msg == "exit":
+    if msg == 'exit':
         udp.close()
         break
 
-    algoritmo = input("Digite 1 para usar o algoritmo GBN, 2 para o algoritmo Repetição seletiva: ")
+    algoritmo = input('Digite 1 para usar o algoritmo GBN, 2 para o algoritmo Repetição seletiva: ')
     con.send(algoritmo.encode())
 
     msg = codigo_binario(msg)
@@ -30,5 +30,10 @@ while True:
 
     janela = int(input('Digite o número da janela: ')) -1
 
-    go_Back_N_envio(tamanho, janela, con, msg)
-
+    algoritmo = int(algoritmo)
+    if algoritmo == 1:
+        go_Back_N_envio(tamanho, janela, con, msg)
+    elif algoritmo == 2:
+        ...
+    else:
+        print('Opção invalida !! :(')

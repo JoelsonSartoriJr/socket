@@ -18,7 +18,13 @@ while True:
     tamanho = udp.recv(1024)
     tamanho = int(tamanho.decode())
 
-    go_Back_N_recebe(udp, tamanho)
+
+    if algoritmo == 1:
+        go_Back_N_recebe(udp, tamanho)
+    elif algoritmo == 2:
+        ...
+    else:
+        print('Opção invalida !! :(')
 
     print(f"Mensagem recebida: {msg}")
 
